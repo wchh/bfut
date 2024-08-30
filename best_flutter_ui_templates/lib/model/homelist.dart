@@ -1,7 +1,7 @@
-import 'package:best_flutter_ui_templates/design_course/home_design_course.dart';
-import 'package:best_flutter_ui_templates/fitness_app/fitness_app_home_screen.dart';
-import 'package:best_flutter_ui_templates/hotel_booking/hotel_home_screen.dart';
-import 'package:best_flutter_ui_templates/introduction_animation/introduction_animation_screen.dart';
+import 'package:bfut/design_course/home_design_course.dart';
+import 'package:bfut/fitness_app/fitness_app_home_screen.dart';
+import 'package:bfut/hotel_booking/hotel_home_screen.dart';
+import 'package:bfut/introduction_animation/introduction_animation_screen.dart';
 import 'package:flutter/widgets.dart';
 
 class HomeList {
@@ -16,19 +16,19 @@ class HomeList {
   static List<HomeList> homeList = [
     HomeList(
       imagePath: 'assets/introduction_animation/introduction_animation.png',
-      navigateScreen: IntroductionAnimationScreen(),
+      navigateScreen: const IntroductionAnimationScreen(),
     ),
     HomeList(
       imagePath: 'assets/hotel/hotel_booking.png',
-      navigateScreen: HotelHomeScreen(),
+      navigateScreen: const HotelHomeScreen(),
     ),
     HomeList(
       imagePath: 'assets/fitness_app/fitness_app.png',
-      navigateScreen: FitnessAppHomeScreen(),
+      navigateScreen: const FitnessAppHomeScreen(),
     ),
     HomeList(
       imagePath: 'assets/design_course/design_course.png',
-      navigateScreen: DesignCourseHomeScreen(),
+      navigateScreen: const DesignCourseHomeScreen(),
     ),
   ];
 }

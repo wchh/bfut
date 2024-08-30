@@ -1,6 +1,5 @@
-package com.example.best_flutter_ui_templates
+package com.example.bfut
 
 import io.flutter.embedding.android.FlutterActivity
 
-class MainActivity: FlutterActivity() {
-}
+class MainActivity: FlutterActivity()

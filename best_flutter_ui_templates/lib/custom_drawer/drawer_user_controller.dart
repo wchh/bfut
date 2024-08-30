@@ -1,26 +1,30 @@
-import 'package:best_flutter_ui_templates/app_theme.dart';
-import 'package:best_flutter_ui_templates/custom_drawer/home_drawer.dart';
+import 'package:bfut/app_theme.dart';
+import 'package:bfut/custom_drawer/home_drawer.dart';
+import 'package:bfut/feedback_screen.dart';
+import 'package:bfut/help_screen.dart';
+import 'package:bfut/home_screen.dart';
+import 'package:bfut/invite_friend_screen.dart';
 import 'package:flutter/material.dart';
 
 class DrawerUserController extends StatefulWidget {
   const DrawerUserController({
     Key? key,
     this.drawerWidth = 250,
-    this.onDrawerCall,
-    this.screenView,
-    this.animatedIconData = AnimatedIcons.arrow_menu,
-    this.menuView,
-    this.drawerIsOpen,
-    this.screenIndex,
+    // this.onDrawerCall,
+    // this.screenView,
+    // this.animatedIconData = AnimatedIcons.arrow_menu,
+    // this.menuView,
+    // this.drawerIsOpen,
+    // this.screenIndex,
   }) : super(key: key);
 
   final double drawerWidth;
-  final Function(DrawerIndex)? onDrawerCall;
-  final Widget? screenView;
-  final Function(bool)? drawerIsOpen;
-  final AnimatedIconData? animatedIconData;
-  final Widget? menuView;
-  final DrawerIndex? screenIndex;
+  // final Function(DrawerIndex)? onDrawerCall;
+  // final Widget? screenView;
+  // final Function(bool)? drawerIsOpen;
+  // final AnimatedIconData? animatedIconData;
+  // final Widget? menuView;
+  // final DrawerIndex? screenIndex;
 
   @override
   _DrawerUserControllerState createState() => _DrawerUserControllerState();
@@ -31,8 +35,11 @@ class _DrawerUserControllerState extends State<DrawerUserController>
   ScrollController? scrollController;
   AnimationController? iconAnimationController;
   AnimationController? animationController;
+  final AnimatedIconData? animatedIconData = AnimatedIcons.arrow_menu;
 
   double scrolloffset = 0.0;
+  Widget? screenView;
+  DrawerIndex? drawerIndex;
 
   @override
   void initState() {
@@ -40,47 +47,46 @@ class _DrawerUserControllerState extends State<DrawerUserController>
         duration: const Duration(milliseconds: 2000), vsync: this);
     iconAnimationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 0));
-    iconAnimationController
-      ?..animateTo(1.0,
-          duration: const Duration(milliseconds: 0),
-          curve: Curves.fastOutSlowIn);
+    iconAnimationController?.animateTo(1.0,
+        duration: const Duration(milliseconds: 0), curve: Curves.fastOutSlowIn);
     scrollController =
         ScrollController(initialScrollOffset: widget.drawerWidth);
-    scrollController!
-      ..addListener(() {
-        if (scrollController!.offset <= 0) {
-          if (scrolloffset != 1.0) {
-            setState(() {
-              scrolloffset = 1.0;
-              try {
-                widget.drawerIsOpen!(true);
-              } catch (_) {}
-            });
-          }
-          iconAnimationController?.animateTo(0.0,
-              duration: const Duration(milliseconds: 0),
-              curve: Curves.fastOutSlowIn);
-        } else if (scrollController!.offset > 0 &&
-            scrollController!.offset < widget.drawerWidth.floor()) {
-          iconAnimationController?.animateTo(
-              (scrollController!.offset * 100 / (widget.drawerWidth)) / 100,
-              duration: const Duration(milliseconds: 0),
-              curve: Curves.fastOutSlowIn);
-        } else {
-          if (scrolloffset != 0.0) {
-            setState(() {
-              scrolloffset = 0.0;
-              try {
-                widget.drawerIsOpen!(false);
-              } catch (_) {}
-            });
-          }
-          iconAnimationController?.animateTo(1.0,
-              duration: const Duration(milliseconds: 0),
-              curve: Curves.fastOutSlowIn);
+    scrollController!.addListener(() {
+      if (scrollController!.offset <= 0) {
+        if (scrolloffset != 1.0) {
+          setState(() {
+            scrolloffset = 1.0;
+            try {
+              // widget.drawerIsOpen!(true);
+            } catch (_) {}
+          });
         }
-      });
+        iconAnimationController?.animateTo(0.0,
+            duration: const Duration(milliseconds: 0),
+            curve: Curves.fastOutSlowIn);
+      } else if (scrollController!.offset > 0 &&
+          scrollController!.offset < widget.drawerWidth.floor()) {
+        iconAnimationController?.animateTo(
+            (scrollController!.offset * 100 / (widget.drawerWidth)) / 100,
+            duration: const Duration(milliseconds: 0),
+            curve: Curves.fastOutSlowIn);
+      } else {
+        if (scrolloffset != 0.0) {
+          setState(() {
+            scrolloffset = 0.0;
+            try {
+              // widget.drawerIsOpen!(false);
+            } catch (_) {}
+          });
+        }
+        iconAnimationController?.animateTo(1.0,
+            duration: const Duration(milliseconds: 0),
+            curve: Curves.fastOutSlowIn);
+      }
+    });
     WidgetsBinding.instance.addPostFrameCallback((_) => getInitState());
+    drawerIndex = DrawerIndex.HOME;
+    screenView = const MyHomePage();
     super.initState();
   }
 
@@ -119,15 +125,16 @@ class _DrawerUserControllerState extends State<DrawerUserController>
                       transform: Matrix4.translationValues(
                           scrollController!.offset, 0.0, 0.0),
                       child: HomeDrawer(
-                        screenIndex: widget.screenIndex == null
-                            ? DrawerIndex.HOME
-                            : widget.screenIndex,
+                        screenIndex: drawerIndex ?? DrawerIndex.HOME,
                         iconAnimationController: iconAnimationController,
                         callBackIndex: (DrawerIndex indexType) {
                           onDrawerClick();
                           try {
-                            widget.onDrawerCall!(indexType);
-                          } catch (e) {}
+                            // widget.onDrawerCall!(indexType);
+                            changeIndex(indexType);
+                          } catch (e) {
+                            print(e);
+                          }
                         },
                       ),
                     );
@@ -151,8 +158,8 @@ class _DrawerUserControllerState extends State<DrawerUserController>
                     children: <Widget>[
                       //this IgnorePointer we use as touch(user Interface) widget.screen View, for example scrolloffset == 1 means drawer is close we just allow touching all widget.screen View
                       IgnorePointer(
-                        ignoring: scrolloffset == 1 || false,
-                        child: widget.screenView,
+                        ignoring: scrolloffset == 1,
+                        child: screenView,
                       ),
                       //alternative touch(user Interface) for widget.screen, for example, drawer is close we need to tap on a few home screen area and close the drawer
                       if (scrolloffset == 1.0)
@@ -161,40 +168,7 @@ class _DrawerUserControllerState extends State<DrawerUserController>
                             onDrawerClick();
                           },
                         ),
-                      // this just menu and arrow icon animation
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: MediaQuery.of(context).padding.top + 8,
-                            left: 8),
-                        child: SizedBox(
-                          width: AppBar().preferredSize.height - 8,
-                          height: AppBar().preferredSize.height - 8,
-                          child: Material(
-                            color: Colors.transparent,
-                            child: InkWell(
-                              borderRadius: BorderRadius.circular(
-                                  AppBar().preferredSize.height),
-                              child: Center(
-                                // if you use your own menu view UI you add form initialization
-                                child: widget.menuView != null
-                                    ? widget.menuView
-                                    : AnimatedIcon(
-                                        color: isLightMode
-                                            ? AppTheme.dark_grey
-                                            : AppTheme.white,
-                                        icon: widget.animatedIconData ??
-                                            AnimatedIcons.arrow_menu,
-                                        progress: iconAnimationController!),
-                              ),
-                              onTap: () {
-                                FocusScope.of(context)
-                                    .requestFocus(FocusNode());
-                                onDrawerClick();
-                              },
-                            ),
-                          ),
-                        ),
-                      ),
+                      _buildDrawerIcon(isLightMode: isLightMode)
                     ],
                   ),
                 ),
@@ -220,6 +194,65 @@ class _DrawerUserControllerState extends State<DrawerUserController>
         duration: const Duration(milliseconds: 400),
         curve: Curves.fastOutSlowIn,
       );
+    }
+  }
+
+  Widget _buildDrawerIcon({bool isLightMode = true}) {
+    // this just menu and arrow icon animation
+    return Padding(
+      padding:
+          EdgeInsets.only(top: MediaQuery.of(context).padding.top + 8, left: 8),
+      child: SizedBox(
+        width: AppBar().preferredSize.height - 8,
+        height: AppBar().preferredSize.height - 8,
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            borderRadius: BorderRadius.circular(AppBar().preferredSize.height),
+            child: Center(
+              // if you use your own menu view UI you add form initialization
+              child: AnimatedIcon(
+                  color: isLightMode ? AppTheme.dark_grey : AppTheme.white,
+                  icon: animatedIconData ?? AnimatedIcons.arrow_menu,
+                  progress: iconAnimationController!),
+            ),
+            onTap: () {
+              FocusScope.of(context).requestFocus(FocusNode());
+              onDrawerClick();
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
+  void changeIndex(DrawerIndex drawerIndexdata) {
+    if (drawerIndex != drawerIndexdata) {
+      drawerIndex = drawerIndexdata;
+      switch (drawerIndex) {
+        case DrawerIndex.HOME:
+          setState(() {
+            screenView = const MyHomePage();
+          });
+          break;
+        case DrawerIndex.Help:
+          setState(() {
+            screenView = const HelpScreen();
+          });
+          break;
+        case DrawerIndex.FeedBack:
+          setState(() {
+            screenView = const FeedbackScreen();
+          });
+          break;
+        case DrawerIndex.Invite:
+          setState(() {
+            screenView = const InviteFriend();
+          });
+          break;
+        default:
+          break;
+      }
     }
   }
 }

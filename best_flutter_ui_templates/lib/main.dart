@@ -1,8 +1,8 @@
 import 'dart:io';
-import 'package:best_flutter_ui_templates/app_theme.dart';
+import 'package:bfut/app_theme.dart';
+import 'package:bfut/custom_drawer/drawer_user_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'navigation_home_screen.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 void main() async {
@@ -10,10 +10,12 @@ void main() async {
   await SystemChrome.setPreferredOrientations(<DeviceOrientation>[
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown
-  ]).then((_) => runApp(MyApp()));
+  ]).then((_) => runApp(const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
@@ -31,9 +33,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         textTheme: AppTheme.textTheme,
-        platform: TargetPlatform.iOS,
+        // platform: TargetPlatform.iOS,
       ),
-      home: NavigationHomeScreen(),
+      home: DrawerUserController(
+        drawerWidth: MediaQuery.of(context).size.width * 0.75,
+      ), //const NavigationHomeScreen(),
     );
   }
 }

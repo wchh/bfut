@@ -1,7 +1,7 @@
-import 'package:best_flutter_ui_templates/fitness_app/ui_view/area_list_view.dart';
-import 'package:best_flutter_ui_templates/fitness_app/ui_view/running_view.dart';
-import 'package:best_flutter_ui_templates/fitness_app/ui_view/title_view.dart';
-import 'package:best_flutter_ui_templates/fitness_app/ui_view/workout_view.dart';
+import 'package:bfut/fitness_app/ui_view/area_list_view.dart';
+import 'package:bfut/fitness_app/ui_view/running_view.dart';
+import 'package:bfut/fitness_app/ui_view/title_view.dart';
+import 'package:bfut/fitness_app/ui_view/workout_view.dart';
 import 'package:flutter/material.dart';
 
 import '../fitness_app_theme.dart';
@@ -27,7 +27,7 @@ class _TrainingScreenState extends State<TrainingScreen>
     topBarAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
         CurvedAnimation(
             parent: widget.animationController!,
-            curve: Interval(0, 0.5, curve: Curves.fastOutSlowIn)));
+            curve: const Interval(0, 0.5, curve: Curves.fastOutSlowIn)));
     addAllListData();
 
     scrollController.addListener(() {
@@ -64,8 +64,8 @@ class _TrainingScreenState extends State<TrainingScreen>
         subTxt: 'Details',
         animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
             parent: widget.animationController!,
-            curve:
-                Interval((1 / count) * 0, 1.0, curve: Curves.fastOutSlowIn))),
+            curve: const Interval((1 / count) * 0, 1.0,
+                curve: Curves.fastOutSlowIn))),
         animationController: widget.animationController!,
       ),
     );
@@ -74,8 +74,8 @@ class _TrainingScreenState extends State<TrainingScreen>
       WorkoutView(
         animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
             parent: widget.animationController!,
-            curve:
-                Interval((1 / count) * 2, 1.0, curve: Curves.fastOutSlowIn))),
+            curve: const Interval((1 / count) * 2, 1.0,
+                curve: Curves.fastOutSlowIn))),
         animationController: widget.animationController!,
       ),
     );
@@ -83,8 +83,8 @@ class _TrainingScreenState extends State<TrainingScreen>
       RunningView(
         animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
             parent: widget.animationController!,
-            curve:
-                Interval((1 / count) * 3, 1.0, curve: Curves.fastOutSlowIn))),
+            curve: const Interval((1 / count) * 3, 1.0,
+                curve: Curves.fastOutSlowIn))),
         animationController: widget.animationController!,
       ),
     );
@@ -95,8 +95,8 @@ class _TrainingScreenState extends State<TrainingScreen>
         subTxt: 'more',
         animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
             parent: widget.animationController!,
-            curve:
-                Interval((1 / count) * 4, 1.0, curve: Curves.fastOutSlowIn))),
+            curve: const Interval((1 / count) * 4, 1.0,
+                curve: Curves.fastOutSlowIn))),
         animationController: widget.animationController!,
       ),
     );
@@ -106,7 +106,7 @@ class _TrainingScreenState extends State<TrainingScreen>
         mainScreenAnimation: Tween<double>(begin: 0.0, end: 1.0).animate(
             CurvedAnimation(
                 parent: widget.animationController!,
-                curve: Interval((1 / count) * 5, 1.0,
+                curve: const Interval((1 / count) * 5, 1.0,
                     curve: Curves.fastOutSlowIn))),
         mainScreenAnimationController: widget.animationController!,
       ),
@@ -227,7 +227,7 @@ class _TrainingScreenState extends State<TrainingScreen>
                                 borderRadius: const BorderRadius.all(
                                     Radius.circular(32.0)),
                                 onTap: () {},
-                                child: Center(
+                                child: const Center(
                                   child: Icon(
                                     Icons.keyboard_arrow_left,
                                     color: FitnessAppTheme.grey,
@@ -235,15 +235,15 @@ class _TrainingScreenState extends State<TrainingScreen>
                                 ),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(
+                            const Padding(
+                              padding: EdgeInsets.only(
                                 left: 8,
                                 right: 8,
                               ),
                               child: Row(
                                 children: <Widget>[
                                   Padding(
-                                    padding: const EdgeInsets.only(right: 8),
+                                    padding: EdgeInsets.only(right: 8),
                                     child: Icon(
                                       Icons.calendar_today,
                                       color: FitnessAppTheme.grey,
@@ -272,7 +272,7 @@ class _TrainingScreenState extends State<TrainingScreen>
                                 borderRadius: const BorderRadius.all(
                                     Radius.circular(32.0)),
                                 onTap: () {},
-                                child: Center(
+                                child: const Center(
                                   child: Icon(
                                     Icons.keyboard_arrow_right,
                                     color: FitnessAppTheme.grey,

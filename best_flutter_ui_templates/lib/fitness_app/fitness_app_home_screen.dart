@@ -1,11 +1,13 @@
-import 'package:best_flutter_ui_templates/fitness_app/models/tabIcon_data.dart';
-import 'package:best_flutter_ui_templates/fitness_app/training/training_screen.dart';
+import 'package:bfut/fitness_app/models/tab_icon_data.dart';
+import 'package:bfut/fitness_app/training/training_screen.dart';
 import 'package:flutter/material.dart';
 import 'bottom_navigation_view/bottom_bar_view.dart';
 import 'fitness_app_theme.dart';
 import 'my_diary/my_diary_screen.dart';
 
 class FitnessAppHomeScreen extends StatefulWidget {
+  const FitnessAppHomeScreen({super.key});
+
   @override
   _FitnessAppHomeScreenState createState() => _FitnessAppHomeScreenState();
 }
@@ -22,9 +24,9 @@ class _FitnessAppHomeScreenState extends State<FitnessAppHomeScreen>
 
   @override
   void initState() {
-    tabIconsList.forEach((TabIconData tab) {
+    for (var tab in tabIconsList) {
       tab.isSelected = false;
-    });
+    }
     tabIconsList[0].isSelected = true;
 
     animationController = AnimationController(
@@ -72,9 +74,10 @@ class _FitnessAppHomeScreenState extends State<FitnessAppHomeScreen>
   Widget bottomBar() {
     return Column(
       children: <Widget>[
-        const Expanded(
-          child: SizedBox(),
-        ),
+        // const Expanded(
+        //   child: SizedBox(),
+        // ),
+        const Spacer(),
         BottomBarView(
           tabIconsList: tabIconsList,
           addClick: () {},

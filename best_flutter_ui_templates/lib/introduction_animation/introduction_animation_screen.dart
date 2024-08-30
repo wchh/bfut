@@ -1,10 +1,10 @@
-import 'package:best_flutter_ui_templates/introduction_animation/components/care_view.dart';
-import 'package:best_flutter_ui_templates/introduction_animation/components/center_next_button.dart';
-import 'package:best_flutter_ui_templates/introduction_animation/components/mood_diary_vew.dart';
-import 'package:best_flutter_ui_templates/introduction_animation/components/relax_view.dart';
-import 'package:best_flutter_ui_templates/introduction_animation/components/splash_view.dart';
-import 'package:best_flutter_ui_templates/introduction_animation/components/top_back_skip_view.dart';
-import 'package:best_flutter_ui_templates/introduction_animation/components/welcome_view.dart';
+import 'package:bfut/introduction_animation/components/care_view.dart';
+import 'package:bfut/introduction_animation/components/center_next_button.dart';
+import 'package:bfut/introduction_animation/components/mood_diary_vew.dart';
+import 'package:bfut/introduction_animation/components/relax_view.dart';
+import 'package:bfut/introduction_animation/components/splash_view.dart';
+import 'package:bfut/introduction_animation/components/top_back_skip_view.dart';
+import 'package:bfut/introduction_animation/components/welcome_view.dart';
 import 'package:flutter/material.dart';
 
 class IntroductionAnimationScreen extends StatefulWidget {
@@ -22,7 +22,7 @@ class _IntroductionAnimationScreenState
   @override
   void initState() {
     _animationController =
-        AnimationController(vsync: this, duration: Duration(seconds: 8));
+        AnimationController(vsync: this, duration: const Duration(seconds: 8));
     _animationController?.animateTo(0.0);
     super.initState();
   }
@@ -37,7 +37,7 @@ class _IntroductionAnimationScreenState
   Widget build(BuildContext context) {
     print(_animationController?.value);
     return Scaffold(
-      backgroundColor: Color(0xffF7EBE1),
+      backgroundColor: const Color(0xffF7EBE1),
       body: ClipRect(
         child: Stack(
           children: [
@@ -73,7 +73,7 @@ class _IntroductionAnimationScreenState
 
   void _onSkipClick() {
     _animationController?.animateTo(0.8,
-        duration: Duration(milliseconds: 1200));
+        duration: const Duration(milliseconds: 1200));
   }
 
   void _onBackClick() {

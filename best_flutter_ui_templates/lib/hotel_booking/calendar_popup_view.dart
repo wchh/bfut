@@ -1,4 +1,4 @@
-import 'package:best_flutter_ui_templates/hotel_booking/hotel_app_theme.dart';
+import 'package:bfut/hotel_booking/hotel_app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -80,7 +80,8 @@ class _CalendarPopupViewState extends State<CalendarPopupView>
                     padding: const EdgeInsets.all(24.0),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: HotelAppTheme.buildLightTheme().backgroundColor,
+                        color:
+                            HotelAppTheme.buildLightTheme().colorScheme.surface,
                         borderRadius:
                             const BorderRadius.all(Radius.circular(24.0)),
                         boxShadow: <BoxShadow>[
@@ -124,7 +125,7 @@ class _CalendarPopupViewState extends State<CalendarPopupView>
                                             ? DateFormat('EEE, dd MMM')
                                                 .format(startDate!)
                                             : '--/-- ',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 16,
                                         ),
@@ -160,7 +161,7 @@ class _CalendarPopupViewState extends State<CalendarPopupView>
                                             ? DateFormat('EEE, dd MMM')
                                                 .format(endDate!)
                                             : '--/-- ',
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 16),
                                       ),
@@ -214,11 +215,12 @@ class _CalendarPopupViewState extends State<CalendarPopupView>
                                         // animationController.reverse().then((f) {
 
                                         // });
-                                        widget.onApplyClick!(startDate!, endDate!);
+                                        widget.onApplyClick!(
+                                            startDate!, endDate!);
                                         Navigator.pop(context);
                                       } catch (_) {}
                                     },
-                                    child: Center(
+                                    child: const Center(
                                       child: Text(
                                         'Apply',
                                         style: TextStyle(
